@@ -1,0 +1,73 @@
+import React, { useState, useEffect } from 'react';
+import './App.css';
+import Game from './Game';
+
+function App() {
+  const [gameState, setGameState] = useState({
+    grid: [['', '', ''],
+          ['', '', ''],
+          ['', '', '']],
+    currentPlayer: 'X',
+    moveHistory: []
+  });
+
+  useEffect(() => {
+    const game = new Game(gameState);
+    game.initialize();
+  }, []);
+
+  const handleMove = (row, col) => {
+    const newGameState = { ...gameState };
+    newGameState.grid[row][col] = gameState.currentPlayer;
+    newGameState.moveHistory.push({ row, col, player: gameState.currentPlayer });
+    setGameState(newGameState);
+  };
+
+  const handleUndo = () => {
+    const newGameState = { ...gameState };
+    newGameState.moveHistory.pop();
+    newGameState.grid = newGameState.moveHistory.reduce((acc, move) => {
+      acc[move.row][move.col] = move.player;
+      return acc;
+    }, [['', '', ''],
+          ['', '', ''],
+          ['', '', '']]);
+    setGameState(newGameState);
+  };
+
+  const handleRestart = () => {
+    setGameState({
+      grid: [['', '', ''],
+            ['', '', ''],
+            ['', '', '']],
+      currentPlayer: 'X',
+      moveHistory: []
+    });
+  };
+
+  return (
+    <div className="App">
+      <h1>Tic Tac Toe</h1>
+      <div className="grid">
+        {gameState.grid.map((row, rowIdx) => (
+          <div className="row" key={rowIdx}>
+            {row.map((cell, cellIdx) => (
+              <button
+                key={cellIdx}
+                onClick={() => handleMove(rowIdx, cellIdx)}
+                className={cell ? `cell ${cell}` : `cell`}
+              >
+                {cell}
+              </button>
+            ))}
+          </div>
+        ))}
+      </div>
+      <button onClick={handleUndo}>Undo</button>
+      <button onClick={handleRestart}>Restart</button>
+      <p>Current Player: {gameState.currentPlayer}</p>
+    </div>
+  );
+}
+
+export default App;

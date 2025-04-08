@@ -1,0 +1,56 @@
+import React, { useState } from 'react';
+import './App.css';
+import Grid from './Grid';
+import { initializeGame, makeMove, checkWin, checkDraw } from './gameLogic';
+
+function App() {
+  const [gameState, setGameState] = useState({
+    grid: [['', '', ''], ['', '', ''], ['', '', '']],
+    currentPlayer: 'X',
+    moveHistory: []
+  });
+
+  const handleStartNewGame = () => {
+    initializeGame(gameState);
+  };
+
+  const handleMakeMove = (row, col) => {
+    makeMove(gameState, row, col);
+  };
+
+  const handleUndo = () => {
+    if (gameState.moveHistory.length > 0) {
+      const previousGameState = gameState.moveHistory.pop();
+      setGameState(previousGameState);
+    }
+  };
+
+  const handleRestart = () => {
+    setGameState({
+      grid: [['', '', ''], ['', '', ''], ['', '', '']],
+      currentPlayer: 'X',
+      moveHistory: []
+    });
+  };
+
+  const handleCheckWinOrDraw = () => {
+    const winner = checkWin(gameState);
+    if (winner) {
+      alert(`Player ${winner} won!`);
+    } else if (checkDraw(gameState)) {
+      alert('It\'s a draw!');
+    }
+  };
+
+  return (
+    <div className="App">
+      <Grid gameState={gameState} makeMove={handleMakeMove} />
+      <button onClick={handleStartNewGame}>Start New Game</button>
+      <button onClick={handleUndo}>Undo</button>
+      <button onClick={handleRestart}>Restart</button>
+      <button onClick={handleCheckWinOrDraw}>Check Win/DRAW</button>
+    </div>
+  );
+}
+
+export default App;

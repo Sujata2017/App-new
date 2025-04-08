@@ -1,0 +1,48 @@
+.App {
+  font-family: Arial, sans-serif;
+  text-align: center;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 10px;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+}
+
+.cell {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  padding: 10px;
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.cell.X {
+  background-color: #eee;
+}
+
+.cell.O {
+  background-color: #ccc;
+}
+
+.undo-button {
+  background-color: #eee;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.restart-button {
+  background-color: #ccc;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+}

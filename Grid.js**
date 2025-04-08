@@ -1,0 +1,25 @@
+import React from 'react';
+import './Grid.css';
+
+function Grid({ gameState, makeMove }) {
+  const rows = [];
+  for (let i = 0; i < 3; i++) {
+    const row = [];
+    for (let j = 0; j < 3; j++) {
+      const cell = (
+        <div
+          className="cell"
+          onClick={() => makeMove(i, j)}
+          key={`cell-${i}-${j}`}
+        >
+          {gameState.grid[i][j]}
+        </div>
+      );
+      row.push(cell);
+    }
+    rows.push(<div className="row">{row}</div>);
+  }
+  return <div className="grid">{rows}</div>;
+}
+
+export default Grid;

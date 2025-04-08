@@ -1,0 +1,27 @@
+class Game {
+  constructor(gameState) {
+    this.gameState = gameState;
+  }
+
+  initialize() {
+    this.gameState.currentPlayer = 'X';
+  }
+
+  updateGrid(row, col) {
+    this.gameState.grid[row][col] = this.gameState.currentPlayer;
+  }
+
+  checkForWin() {
+    // TO DO: implement winning condition logic
+  }
+
+  checkForDraw() {
+    // TO DO: implement draw condition logic
+  }
+
+  displayResult() {
+    // TO DO: implement display result logic
+  }
+}
+
+export default Game;

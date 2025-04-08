@@ -1,0 +1,25 @@
+export const initializeGame = (gameState) => {
+  gameState.grid = [['', '', ''], ['', '', ''], ['', '', '']];
+  gameState.currentPlayer = 'X';
+  gameState.moveHistory = [];
+};
+
+export const makeMove = (gameState, row, col) => {
+  if (gameState.grid[row][col] === '') {
+    gameState.grid[row][col] = gameState.currentPlayer;
+    gameState.moveHistory.push({ ...gameState });
+    gameState.currentPlayer = gameState.currentPlayer === 'X' ? 'O' : 'X';
+  }
+};
+
+export const checkWin = (gameState) => {
+  // implement win checking logic here
+  // for now, return null
+  return null;
+};
+
+export const checkDraw = (gameState) => {
+  // implement draw checking logic here
+  // for now, return false
+  return false;
+};
